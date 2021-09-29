@@ -1,0 +1,9 @@
+main.c
+*.out
+*.a
+*.o
+check_norm.sh
+build.sh
+test.h
+*.swp
+ex01/srcs

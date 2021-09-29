@@ -1,0 +1,4 @@
+**/main.c
+**/*.out
+check_norm.sh
+build.sh

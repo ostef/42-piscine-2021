@@ -1,0 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_base.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: soumanso <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/07 11:57:16 by soumanso          #+#    #+#             */
+/*   Updated: 2021/09/07 12:32:25 by soumanso         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int	ft_isspace(char c)
+{
+	if (c == '\t')
+		return (1);
+	else if (c == '\n')
+		return (1);
+	else if (c == ' ')
+		return (1);
+	else if (c == '\r')
+		return (1);
+	else if (c == '\v')
+		return (1);
+	else if (c == '\f')
+		return (1);
+	return (0);
+}
+
+int	ft_to_digit(char c, char *base)
+{
+	int	i;
+
+	i = 0;
+	while (base[i])
+	{
+		if (base[i] == c)
+			return (i);
+		i += 1;
+	}
+	return (-1);
+}
+
+int	ft_base_is_valid(char *base, int *base_len)
+{
+	int	i;
+	int	j;
+
+	if (!base || !base_len)
+		return (0);
+	i = 0;
+	while (base[i])
+	{
+		if (ft_isspace (base[i]) || base[i] == '+' || base[i] == '-')
+			return (0);
+		j = i + 1;
+		while (base[j])
+		{
+			if (base[i] == base[j])
+				return (0);
+			j += 1;
+		}
+		i += 1;
+	}
+	if (i < 2)
+		return (0);
+	*base_len = i;
+	return (1);
+}
+
+int	ft_calc_digits_in_str(char *str, char *base, unsigned int *un, int *exp)
+{
+	int	digits;
+
+	*un = 0;
+	*exp = 1;
+	digits = 0;
+	while (str[digits] && ft_to_digit (str[digits], base) != -1)
+		digits += 1;
+	return (digits);
+}
+
+int	ft_atoi_base(char *nbr, char *base)
+{
+	int				sign;
+	int				base_len;
+	unsigned int	un;
+	int				digits;
+	int				exp;
+
+	if (!ft_base_is_valid (base, &base_len))
+		return (-1);
+	while (*nbr && ft_isspace (*nbr))
+		nbr += 1;
+	sign = 1;
+	while (*nbr == '+' || *nbr == '-')
+	{
+		sign *= (*nbr == '+') * 2 - 1;
+		nbr += 1;
+	}
+	digits = ft_calc_digits_in_str (nbr, base, &un, &exp);
+	while (digits > 0)
+	{
+		un += exp * ft_to_digit (nbr[digits - 1], base);
+		exp *= base_len;
+		digits -= 1;
+	}
+	return (sign * un);
+}

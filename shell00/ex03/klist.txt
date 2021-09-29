@@ -1,0 +1,5 @@
+Credentials cache: API:B06E8D79-5D5D-4E78-8346-E35C823294DF
+        Principal: soumanso@42LYON.FR
+
+  Issued                Expires               Principal
+Aug 30 12:18:15 2021  Aug 31 12:18:15 2021  krbtgt/42LYON.FR@42LYON.FR

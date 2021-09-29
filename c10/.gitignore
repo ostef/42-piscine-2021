@@ -1,0 +1,9 @@
+*/test/
+*.out
+*.swp
+test
+*.o
+ft_display_file
+ft_hexdump
+ft_tail
+ft_cat
